@@ -1,7 +1,21 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const MemoryCard = ({ title, message, index, isActive }) => {
+// Import memories
+import memory1 from '../assets/memories/memory1.jpg';
+import memory2 from '../assets/memories/memory2.jpg';
+import memory3 from '../assets/memories/memory3.jpg';
+import memory4 from '../assets/memories/memory4.jpg';
+import memory5 from '../assets/memories/memory5.jpg';
+import memory6 from '../assets/memories/memory6.jpg';
+import memory7 from '../assets/memories/memory7.jpg';
+import memory8 from '../assets/memories/memory8.jpg';
+import memory9 from '../assets/memories/memory9.jpg';
+import memory10 from '../assets/memories/memory10.jpg';
+import memory11 from '../assets/memories/memory11.jpg';
+import memory12 from '../assets/memories/memory12.jpg';
+
+const MemoryCard = ({ title, message, index, isActive, img }) => {
     return (
         <motion.div
             initial={{ opacity: 0, rotateY: -90, scale: 0.8 }}
@@ -16,7 +30,7 @@ const MemoryCard = ({ title, message, index, isActive }) => {
             className="glass"
             style={{
                 width: 'min(400px, 90vw)',
-                height: 'min(500px, 70vh)',
+                height: 'min(550px, 75vh)', // Slightly taller for images
                 padding: '40px',
                 display: 'flex',
                 flexDirection: 'column',
@@ -31,31 +45,35 @@ const MemoryCard = ({ title, message, index, isActive }) => {
                 boxShadow: isActive ? '0 20px 60px rgba(255, 20, 147, 0.4)' : 'none',
             }}
         >
-            {/* Photo Placeholder with Animation */}
+            {/* Real Photo */}
             <motion.div
-                animate={isActive ? {
-                    scale: [1, 1.05, 1],
-                } : {}}
-                transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isActive ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.5 }}
                 style={{
-                    width: '220px',
-                    height: '220px',
+                    width: '100%',
+                    maxWidth: '280px',
+                    aspectRatio: '1/1',
+                    marginBottom: '30px',
                     borderRadius: '20px',
-                    background: 'linear-gradient(135deg, rgba(255, 20, 147, 0.3), rgba(139, 0, 139, 0.3))',
+                    overflow: 'hidden',
+                    border: '4px solid rgba(255, 255, 255, 0.5)',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    marginBottom: '30px',
-                    fontSize: '5rem',
-                    border: '3px solid rgba(255, 20, 147, 0.4)',
-                    boxShadow: isActive ? '0 10px 30px rgba(255, 20, 147, 0.3)' : 'none',
+                    backgroundColor: '#fff'
                 }}
             >
-                📸
+                <img
+                    src={img}
+                    alt={title}
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                    }}
+                />
             </motion.div>
 
             <motion.h3
@@ -67,7 +85,7 @@ const MemoryCard = ({ title, message, index, isActive }) => {
                     repeat: Infinity,
                 }}
                 style={{
-                    fontSize: '2rem',
+                    fontSize: '1.8rem',
                     marginBottom: '15px',
                     fontFamily: 'Playfair Display, serif',
                 }}
@@ -76,9 +94,9 @@ const MemoryCard = ({ title, message, index, isActive }) => {
             </motion.h3>
 
             <p style={{
-                fontSize: '1.2rem',
+                fontSize: '1.1rem',
                 color: 'var(--text-soft)',
-                lineHeight: '1.8',
+                lineHeight: '1.6',
             }}>
                 {message}
             </p>
@@ -89,24 +107,64 @@ const MemoryCard = ({ title, message, index, isActive }) => {
 const Scene3_Memories = ({ onNext }) => {
     const memories = [
         {
-            title: "Our First Date 🌹",
-            message: "The moment I knew this was something special"
+            title: "Us ❤️",
+            message: "Every picture tells a story of love.",
+            img: memory1
         },
         {
-            title: "When I Knew 💭",
-            message: "You were different from everyone else"
+            title: "Beautiful Moments ✨",
+            message: "Cherishing every second with you.",
+            img: memory2
         },
         {
-            title: "My Favorite Memory 📸",
-            message: "Every moment with you becomes my new favorite"
+            title: "Just You & Me 🌹",
+            message: "The world fades away when I'm with you.",
+            img: memory3
         },
         {
-            title: "Falling For You 💘",
-            message: "It happened before I even realized it"
+            title: "Smiles 😊",
+            message: "Your happiness is my favorite sight.",
+            img: memory4
         },
         {
-            title: "Every Day 🎈",
-            message: "With you is an adventure I never want to end"
+            title: "Adventures 🌍",
+            message: "Exploring life hand in hand.",
+            img: memory5
+        },
+        {
+            title: "Sweet Memories 🍬",
+            message: "Moments I'll keep in my heart forever.",
+            img: memory6
+        },
+        {
+            title: "Together Forever ♾️",
+            message: "Building a lifetime of memories.",
+            img: memory7
+        },
+        {
+            title: "My Love �",
+            message: "You are the best thing that ever happened to me.",
+            img: memory8
+        },
+        {
+            title: "Happiness 😄",
+            message: "You are the reason for my smile.",
+            img: memory9
+        },
+        {
+            title: "Dino Hands 🦕",
+            message: "My favorite person in the whole universe.",
+            img: memory10
+        },
+        {
+            title: "Magic ✨",
+            message: "Every day with you is magical.",
+            img: memory11
+        },
+        {
+            title: "I Love You 💝",
+            message: "More than words can ever say.",
+            img: memory12
         }
     ];
 
