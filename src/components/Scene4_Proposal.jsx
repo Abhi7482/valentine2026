@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ConfettiExplosion from 'react-confetti-explosion';
 import Character from './Character';
-import { FloatingHearts, Sparkles } from './ParticleEffects';
 
 const Scene4_Proposal = () => {
     const [showButtons, setShowButtons] = useState(false);
@@ -10,7 +9,7 @@ const Scene4_Proposal = () => {
     const [showSuccess, setShowSuccess] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => setShowButtons(true), 4000);
+        const timer = setTimeout(() => setShowButtons(true), 3500);
         return () => clearTimeout(timer);
     }, []);
 
@@ -20,10 +19,17 @@ const Scene4_Proposal = () => {
     };
 
     return (
-        <div className="scene gradient-bg-4" style={{ overflow: 'hidden' }}>
-            {/* Background Particles */}
-            <FloatingHearts count={15} />
-            <Sparkles count={30} />
+        <div className="scene gradient-bg-1">
+            {/* Subtle background decoration */}
+            <div className="floating-element" style={{
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '600px',
+                height: '600px',
+                borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(212, 87, 109, 0.03), transparent)',
+            }} />
 
             {/* Confetti */}
             {celebrate && (
@@ -35,86 +41,95 @@ const Scene4_Proposal = () => {
                     zIndex: 100,
                 }}>
                     <ConfettiExplosion
-                        force={0.8}
-                        duration={3000}
-                        particleCount={400}
-                        width={2000}
-                        colors={['#ff6b9d', '#ff8fab', '#a18cd1', '#ffffff']}
+                        force={0.6}
+                        duration={3500}
+                        particleCount={200}
+                        width={1600}
+                        colors={['#d4576d', '#f5a3a3', '#fff', '#ffe8e8']}
                     />
                 </div>
             )}
 
-            <div style={{
-                position: 'relative',
-                zIndex: 10,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100%',
-                width: '100%'
-            }}>
+            <div className="scene-content">
                 <AnimatePresence mode="wait">
                     {!showSuccess ? (
                         <motion.div
                             key="proposal"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            exit={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+                            exit={{ opacity: 0, y: -30 }}
                             transition={{ duration: 1 }}
-                            style={{ textAlign: 'center', width: '100%', maxWidth: '800px', padding: '20px' }}
+                            className="modal-card"
+                            style={{ padding: '40px' }}
                         >
-                            {/* Intro Text */}
-                            <motion.h1
-                                initial={{ opacity: 0, y: 30 }}
+                            {/* Date header */}
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 1.5, delay: 0.5 }}
-                                className="glow-text"
-                                style={{
-                                    fontSize: 'clamp(3rem, 6vw, 5rem)',
-                                    marginBottom: '40px',
-                                }}
+                                transition={{ duration: 0.8, delay: 0.3 }}
+                                className="text-date"
+                            >
+                                A Special Question
+                            </motion.div>
+
+                            {/* Greeting */}
+                            <motion.h1
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 1, delay: 0.6 }}
+                                className="text-headline"
+                                style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', marginBottom: '50px' }}
                             >
                                 Dino...
                             </motion.h1>
 
-                            {/* Center Visuals - Characters waiting */}
+                            {/* Characters */}
                             <motion.div
-                                initial={{ opacity: 0, scale: 0 }}
+                                initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 1.5, duration: 1, type: "spring" }}
+                                transition={{ delay: 1.2, duration: 1 }}
                                 style={{
                                     display: 'flex',
                                     justifyContent: 'center',
                                     alignItems: 'flex-end',
-                                    gap: '20px',
-                                    marginBottom: '50px',
+                                    gap: '30px',
+                                    marginBottom: '60px',
                                     height: '100px'
                                 }}
                             >
-                                <Character color="#00ffff" facing="right" scaleY={1} />
+                                <Character color="#5a9aa0" facing="right" scaleY={1} />
                                 <motion.div
-                                    animate={{ scale: [1, 1.2, 1] }}
-                                    transition={{ duration: 1.5, repeat: Infinity }}
-                                    style={{ fontSize: '3rem' }}
+                                    animate={{ scale: [1, 1.15, 1] }}
+                                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                                    style={{
+                                        fontSize: '2.5rem',
+                                        color: 'var(--primary)',
+                                        alignSelf: 'center'
+                                    }}
                                 >
-                                    ❓
+                                    ♥
                                 </motion.div>
-                                <Character color="#ff69b4" facing="left" scaleY={1} />
+                                <Character color="#d4576d" facing="left" scaleY={1} isPartner />
                             </motion.div>
+
+                            {/* Decorative line */}
+                            <motion.div
+                                initial={{ scaleX: 0 }}
+                                animate={{ scaleX: 1 }}
+                                transition={{ duration: 0.8, delay: 1.8 }}
+                                className="divider-gradient"
+                                style={{ margin: '0 auto 50px' }}
+                            />
 
                             {/* The Question */}
                             <motion.h2
-                                initial={{ opacity: 0, filter: 'blur(10px)' }}
-                                animate={{ opacity: 1, filter: 'blur(0px)' }}
-                                transition={{ duration: 2.5, delay: 2.5 }}
-                                style={{
-                                    fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-                                    marginBottom: '50px',
-                                    lineHeight: '1.4',
-                                }}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 1.5, delay: 2.2 }}
+                                className="text-headline"
+                                style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', lineHeight: '1.3' }}
                             >
-                                Will you be my Valentine? ❤️
+                                Will you be my Valentine?
                             </motion.h2>
 
                             {/* Buttons */}
@@ -123,23 +138,54 @@ const Scene4_Proposal = () => {
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}
+                                        transition={{ duration: 0.8 }}
+                                        style={{
+                                            position: 'relative',
+                                            height: '60px',
+                                            width: '100%',
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            gap: '40px'
+                                        }}
                                     >
                                         <motion.button
-                                            whileHover={{ scale: 1.1, boxShadow: "0 10px 25px rgba(255, 107, 157, 0.6)" }}
+                                            whileHover={{ scale: 1.1, boxShadow: "0 10px 35px rgba(212, 87, 109, 0.4)" }}
                                             whileTap={{ scale: 0.95 }}
                                             onClick={handleYes}
                                             className="btn btn-primary"
+                                            style={{
+                                                fontSize: '1.2rem',
+                                                padding: '12px 40px',
+                                                zIndex: 10
+                                            }}
                                         >
-                                            YES 💖
+                                            Yes, I Will! 💖
                                         </motion.button>
+
                                         <motion.button
-                                            whileHover={{ scale: 1.1, boxShadow: "0 10px 25px rgba(255, 107, 157, 0.6)" }}
-                                            whileTap={{ scale: 0.95 }}
-                                            onClick={handleYes}
-                                            className="btn btn-primary"
+                                            onHoverStart={() => {
+                                                // Run away logic
+                                                const x = Math.random() * 200 - 100; // -100 to 100
+                                                const y = Math.random() * 200 - 100;
+                                                const btn = document.getElementById('no-btn');
+                                                if (btn) {
+                                                    btn.style.transform = `translate(${x}px, ${y}px)`;
+                                                }
+                                            }}
+                                            id="no-btn"
+                                            className="btn"
+                                            style={{
+                                                background: '#f1f5f9',
+                                                color: '#64748b',
+                                                border: '1px solid #cbd5e1',
+                                                fontSize: '1rem',
+                                                padding: '12px 30px',
+                                                transition: 'all 0.2s ease',
+                                                position: 'absolute',
+                                                left: 'calc(50% + 100px)' // Start position to the right
+                                            }}
                                         >
-                                            YES OF COURSE 💖
+                                            No
                                         </motion.button>
                                     </motion.div>
                                 )}
@@ -148,104 +194,85 @@ const Scene4_Proposal = () => {
                     ) : (
                         <motion.div
                             key="success"
-                            initial={{ opacity: 0, scale: 0.8 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 1, type: "spring" }}
-                            className="glass"
-                            style={{
-                                padding: '50px',
-                                maxWidth: '90%',
-                                width: '700px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                background: 'rgba(255, 255, 255, 0.3)', // Explicitly visible
-                                border: '2px solid rgba(255, 255, 255, 0.6)',
-                                boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
-                                backdropFilter: 'blur(20px)'
-                            }}
+                            transition={{ duration: 1, ease: [0.43, 0.13, 0.23, 0.96] }}
+                            className="modal-card-success"
                         >
-                            {/* Characters Together - Scaled Up */}
+                            {/* Success header */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.3 }}
+                                className="text-date"
+                            >
+                                She Said Yes
+                            </motion.div>
+
+                            {/* Characters Together */}
                             <div style={{
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'flex-end',
-                                gap: '20px',
-                                marginBottom: '40px',
-                                position: 'relative',
-                                transform: 'scale(1.4)'
+                                gap: '25px',
+                                marginBottom: '50px',
+                                position: 'relative'
                             }}>
                                 <motion.div
-                                    animate={{ y: [0, -10, 0] }}
+                                    animate={{ y: [0, -8, 0] }}
                                     transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                                 >
-                                    <Character color="#00ffff" facing="right" scaleY={1} />
-                                </motion.div>
-
-                                {/* Pulsing Heart Between Them */}
-                                <motion.div
-                                    animate={{ scale: [1, 1.4, 1] }}
-                                    transition={{ duration: 0.8, repeat: Infinity }}
-                                    style={{ fontSize: '3.5rem', margin: '0 15px', paddingBottom: '20px' }}
-                                >
-                                    💖
+                                    <Character color="#5a9aa0" facing="right" scaleY={1} />
                                 </motion.div>
 
                                 <motion.div
-                                    animate={{ y: [0, -10, 0] }}
-                                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.2 }}
+                                    animate={{ scale: [1, 1.3, 1] }}
+                                    transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+                                    style={{ fontSize: '3rem', color: 'var(--primary)', paddingBottom: '15px' }}
                                 >
-                                    <Character color="#ff69b4" facing="left" scaleY={1} isPartner />
+                                    ♥
+                                </motion.div>
+
+                                <motion.div
+                                    animate={{ y: [0, -8, 0] }}
+                                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+                                >
+                                    <Character color="#d4576d" facing="left" scaleY={1} isPartner />
                                 </motion.div>
                             </div>
 
-                            {/* Success Message */}
+                            {/* Decorative line */}
+                            <div className="divider-gradient" style={{ width: '80px', margin: '0 auto 40px' }} />
+
+                            {/* Success message */}
                             <motion.div
-                                className="glow-text"
-                                style={{
-                                    fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-                                    marginBottom: '30px',
-                                    lineHeight: '1.3',
-                                    fontWeight: '700',
-                                    color: '#2c3e50',
-                                    textAlign: 'center'
-                                }}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
                             >
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.5, duration: 1 }}
-                                >
-                                    You just made me the
-                                </motion.div>
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 1.2, duration: 1 }}
-                                    style={{ color: '#ff1493', marginTop: '10px' }}
-                                >
-                                    happiest person alive! 💖
-                                </motion.div>
+                                <h1 className="text-headline" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', lineHeight: '1.2' }}>
+                                    You just made me the<br />
+                                    happiest person alive
+                                </h1>
+
+                                <p className="text-subheadline" style={{ marginBottom: '50px' }}>
+                                    I can't wait to make more beautiful memories with you.
+                                </p>
                             </motion.div>
 
-                            <motion.p
+                            {/* Byline */}
+                            <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                transition={{ delay: 2.0 }}
+                                transition={{ delay: 1.5 }}
+                                className="text-byline"
                                 style={{
-                                    fontSize: 'clamp(1.4rem, 3vw, 1.8rem)',
-                                    color: '#2c3e50',
-                                    marginTop: '20px',
-                                    fontWeight: '600',
-                                    fontFamily: 'Quicksand, sans-serif'
+                                    paddingTop: '30px',
+                                    borderTop: '1px solid var(--accent-border)'
                                 }}
                             >
-                                I can't wait to make more beautiful memories with you.
-                            </motion.p>
-
-                            <div style={{ marginTop: '40px', fontSize: '1.1rem', opacity: 0.8, color: '#5a5a5a', fontStyle: 'italic' }}>
-                                Made with all my love, for you. 🌹
-                            </div>
+                                Made with all my love, for you
+                            </motion.div>
                         </motion.div>
                     )}
                 </AnimatePresence>
